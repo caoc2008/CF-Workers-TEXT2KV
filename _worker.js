@@ -149,18 +149,26 @@ function 下载bat(域名,token) {
 
 function 下载sh(域名,token) {
 	return `#!/bin/bash
+
 export LANG=zh_CN.UTF-8
-DOMAIN="${域名}"
-TOKEN="${token}"
-if [ -n "$1" ]; then 
-  FILENAME="$1"
+
+DOMAIN="text2kv-1lz.pages.dev"
+TOKEN="yxip"
+
+if [ -n "$1" ]; then
+    FILENAME="$1"
 else
-  echo "无文件名"
-  exit 1
+    echo "未提供文件名"
+    exit 1
 fi
-BASE64_TEXT=$(head -n 65 $FILENAME | base64 -i 0)
-curl -k "https://$DOMAIN/$FILENAME?token=$TOKEN&b64=$BASE64_TEXT"
-echo "更新数据完成"
+
+BASE64_TEXT=$(head -n 65 "$FILENAME" | base64)
+
+# 在macOS上，curl默认会使用HTTP1.1，如果需要使用HTTP2，请使用--http2选项。
+curl --http2 -k "https://$DOMAIN/$FILENAME?token=$TOKEN&b64=$BASE64_TEXT"
+
+echo "数据更新完成"
+
 `
 }
 
