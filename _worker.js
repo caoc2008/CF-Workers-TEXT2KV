@@ -152,8 +152,8 @@ function 下载sh(域名,token) {
 
 export LANG=zh_CN.UTF-8
 
-DOMAIN="text2kv-1lz.pages.dev"
-TOKEN="yxip"
+DOMAIN="${域名}"
+TOKEN="${token}"
 
 if [ -n "$1" ]; then
     FILENAME="$1"
